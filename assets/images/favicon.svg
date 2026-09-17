@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="sunGrad" x1="16" y1="8" x2="48" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDE047"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="10" y1="36" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0284C7"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0B1528"/>
+  <!-- Sun Rays & Core -->
+  <circle cx="32" cy="24" r="12" fill="url(#sunGrad)"/>
+  <path d="M32 6V10M32 38V42M14 24H18M46 24H50M19.27 11.27L22.1 14.1M41.9 33.9L44.73 36.73M19.27 36.73L22.1 33.9M41.9 14.1L44.73 11.27" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Solar Panel Array Perspective -->
+  <path d="M12 48L24 36H40L52 48H12Z" fill="url(#panelGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+  <line x1="32" y1="36" x2="32" y2="48" stroke="#38BDF8" stroke-width="1.5"/>
+  <line x1="20" y1="42" x2="44" y2="42" stroke="#38BDF8" stroke-width="1.5"/>
+</svg>

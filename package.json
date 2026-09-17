@@ -1,0 +1,11 @@
+{
+  "name": "sunpeak-solar-demo",
+  "version": "1.0.0",
+  "description": "SunPeak Solar - Krisha Tech Demo Website",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "Krisha Tech",
+  "license": "ISC"
+}
