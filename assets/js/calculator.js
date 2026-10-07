@@ -26,6 +26,12 @@ const SOLAR_ESTIMATE_CONFIG = {
     industrial: { min: 0.60, max: 0.78 },
     society: { min: 0.70, max: 0.85 }
   },
+  // Illustrative PM Surya Ghar central assistance for eligible residential systems.
+  residentialSubsidy: {
+    firstTwoKwPerKw: 30000,
+    thirdKwPerKw: 18000,
+    eligibleCapacityCapKw: 3
+  },
   // Property type labels for user display & WhatsApp inquiry
   propertyLabels: {
     residential: 'Home / Residential Bungalow',
@@ -38,6 +44,14 @@ const SOLAR_ESTIMATE_CONFIG = {
 
 function formatIndianNumber(val) {
   return new Intl.NumberFormat('en-IN').format(Math.round(val));
+}
+
+function estimateResidentialSubsidy(capacityKw) {
+  const scheme = SOLAR_ESTIMATE_CONFIG.residentialSubsidy;
+  const eligibleCapacity = Math.min(capacityKw, scheme.eligibleCapacityCapKw);
+  const firstSlabCapacity = Math.min(eligibleCapacity, 2);
+  const thirdSlabCapacity = Math.max(0, eligibleCapacity - 2);
+  return (firstSlabCapacity * scheme.firstTwoKwPerKw) + (thirdSlabCapacity * scheme.thirdKwPerKw);
 }
 
 class SolarCalculator {
@@ -157,11 +171,15 @@ class SolarCalculator {
 
     // Update WhatsApp CTA link with pre-filled customer details
     const propName = SOLAR_ESTIMATE_CONFIG.propertyLabels[this.currentType];
+    const subsidyEstimate = this.currentType === 'residential'
+      ? `₹${formatIndianNumber(estimateResidentialSubsidy(capacity))} (indicative; eligibility and final amount subject to current scheme rules)`
+      : 'Eligibility to be confirmed for the selected property type';
     const waText = encodeURIComponent(
       `Hello SunPeak Solar, I used your website calculator.\n\n` +
       `• Property: ${propName}\n` +
       `• Approx. Monthly Bill: ₹${formatIndianNumber(this.currentBill)}\n` +
       `• Estimated System: ~${capacity} kW\n\n` +
+      `• PM Surya Ghar Subsidy Estimate: ${subsidyEstimate}\n\n` +
       `I would like to request a free site survey & quotation.`
     );
     if (this.whatsappCta) {
